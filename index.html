@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BinaryShrink</title>
+  <link rel="icon" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="container">
+    <div class="brand">
+      <img class="logo" src="assets/favicon.svg" alt="BinaryShrink logo" />
+      <div>
+        <h1>BinaryShrink</h1>
+        <p class="subtitle">Lossless compression in your browser (Huffman + RLE)</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>1) Choose a file</h2>
+
+      <div class="dropzone" id="dropzone" aria-label="File drop area">
+        <p><strong>Drop a file here</strong> or click to choose</p>
+        <input id="fileInput" type="file" />
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="mode">Mode</label>
+          <select id="mode">
+            <option value="compress" selected>Compress</option>
+            <option value="decompress">Decompress (.bzc)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="algo">Algorithm</label>
+          <select id="algo">
+            <option value="huffman" selected>Huffman Coding</option>
+            <option value="rle">Run-Length Encoding (RLE)</option>
+          </select>
+          <p class="hint">Decompression auto-detects the algorithm from the file header.</p>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button id="runBtn" class="primary" disabled>Run</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+
+      <div class="status" id="status" role="status" aria-live="polite"></div>
+
+      <div class="metrics" id="metrics" hidden>
+        <div class="metric">
+          <div class="k">Input size</div>
+          <div class="v" id="mIn">-</div>
+        </div>
+        <div class="metric">
+          <div class="k">Output size</div>
+          <div class="v" id="mOut">-</div>
+        </div>
+        <div class="metric">
+          <div class="k">Ratio</div>
+          <div class="v" id="mRatio">-</div>
+        </div>
+      </div>
+
+      <div class="download" id="download" hidden>
+        <a id="downloadLink" class="primary" download>Download result</a>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>2) Notes</h2>
+      <ul class="list">
+        <li>This app never uploads your data. Everything runs locally in the browser.</li>
+        <li>RLE is best for repeated bytes (for example: logs with many spaces, simple bitmaps, some binaries).</li>
+        <li>Huffman is often better for normal text, but can be worse for already-compressed files.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container footer">
+    <p>Made for Operating Systems coursework: file I/O, buffering, binary formats, and encoding/decoding.</p>
+  </footer>
+
+  <script type="module" src="src/app.js"></script>
+</body>
+</html>
